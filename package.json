@@ -1,6 +1,6 @@
 {
     "name": "@iconplatforms/observe-property",
-    "version": "1.5.3",
+    "version": "1.5.4",
     "homepage": "https://github.com/iconplatforms/observe-property/#README.md",
     "description": "Observe for property changes with the power of Es6 Proxy and RxJS ",
     "main": "dist/index.js",

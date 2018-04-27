@@ -51,36 +51,34 @@ export  class ObserveProperty <T extends any>{
        let behaviorSubject = this.behaviorSubjectsMap.get(key);
         if(!behaviorSubject){
             behaviorSubject = new BehaviorSubject(this.object[key]);
-           this.behaviorSubjectsMap.set(key,behaviorSubject);
-        
-        const proxy = this.behaviorSubjectsMap.get(key);
-        const propertyAccessors = <PropertyDescriptor>{
-            enumerable: true,
-            configurable: false,
-             set:function (value:any){
-               // HINT: this keyword is referring to the object
-               if(!proxy || this[`${key}_`] === value){
-                 return;
-               }      
-               this[`${key}_`] = value;
-               proxy.next(value);
-            } ,
-            get:function ():any{
-                return this[`${key}_`];
+            this.behaviorSubjectsMap.set(key,behaviorSubject);
+            const propertyAccessors = <PropertyDescriptor>{
+                enumerable: true,
+                configurable: false,
+                set:function (value:any){
+                // HINT: this keyword is referring to the object
+                if(!behaviorSubject || this[`${key}_`] === value){
+                    return;
+                }      
+                this[`${key}_`] = value;
+                behaviorSubject.next(value);
+                } ,
+                get:function ():any{
+                    return this[`${key}_`];
+                } 
             } 
-          } 
-          const privateProperty = <PropertyDescriptor>{
-            enumerable: true,
-            writable:true,
-            configurable: true,
-            value: this.object[key]
-            
-          } 
-        const properties: PropertyDescriptorMap = {
-            [key] :propertyAccessors,
-            [`${key}_`]:privateProperty
-        } 
-        Object.defineProperties(this.object,properties);
+            const privateProperty = <PropertyDescriptor>{
+                enumerable: true,
+                writable:true,
+                configurable: true,
+                value: this.object[key]
+                
+            } 
+            const properties: PropertyDescriptorMap = {
+                [key] :propertyAccessors,
+                [`${key}_`]:privateProperty
+            } 
+            Object.defineProperties(this.object,properties);
      }
        return behaviorSubject;
     }
