@@ -1,0 +1,28 @@
+{
+    "name": "@iconplatforms/observe-property",
+    "version": "1.5.2",
+    "description": "Observe for property changes with the power of Es6 Proxy and RxJS ",
+    "main": "dist/index.js",
+    "types": "dist/index.d.ts",
+    "scripts": {
+        "build": "tsc",
+        "prepublish": "npm run build",
+        "ts-node": "ts-node",
+        "example": "npm run build && node example/example.js",
+        "exampleTs": "npm run build && node dist/example/exampleTs.js"
+    },
+    "dependencies": {
+        "rxjs": "^6.0.0"
+    },
+    "devDependencies": {
+        "@types/rx": "^4.1.1",
+        "ts-node": "^5.0.1",
+        "tslint-eslint-rules": "^5.1.0",
+        "typescript": "^2.8.1"
+    },
+    "files": [
+        "dist"
+    ],
+    "author": "George Floros",
+    "license": "Iconplatforms"
+}
